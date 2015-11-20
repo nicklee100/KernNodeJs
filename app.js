@@ -1,4 +1,4 @@
- var https = require("https");
+var https = require("https");
 var username = "chalkers";
 
 function printMessage(username,badgeCount,points){
@@ -8,7 +8,19 @@ function printMessage(username,badgeCount,points){
 
 var request = https.get("https://teamtreehouse.com/" + username + ".json", function(response){
 	console.dir(response.statusCode);
+	var body = "";
+	//Read data
+	response.on('data', function(chunk){
+		body = body + chunk;
+	});
+	// printing full body
+	response.on('end', function(){
+		console.log(body);
+	});
+
 });
+
+
 
 
 request.on("error", function(error){
